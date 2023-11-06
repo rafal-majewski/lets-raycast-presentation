@@ -1,0 +1,60 @@
+name: Continuous integration on pull request
+
+on:
+  pull_request:
+
+env:
+  SETUP_NODE_NODE_VERSION: 19.7
+
+jobs:
+  prettier_check:
+    name: Prettier check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.SETUP_NODE_NODE_VERSION }}
+          cache: "npm"
+      - name: Install dependencies
+        run: |
+          npm ci
+      - name: Run prettier
+        run: |
+          npm run prettier:check
+  eslint_check:
+    name: ESLint check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.SETUP_NODE_NODE_VERSION }}
+          cache: "npm"
+      - name: Install dependencies
+        run: |
+          npm ci
+      - name: Run eslint
+        run: |
+          npm run eslint:check
+  build_check:
+    name: Build check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.SETUP_NODE_NODE_VERSION }}
+          cache: "npm"
+      - name: Install dependencies
+        run: |
+          npm ci
+      - name: Run build check
+        run: |
+          npm run build:check
