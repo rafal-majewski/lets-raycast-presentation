@@ -1,5 +1,5 @@
-node_modules/
-/build/
-/.svelte-kit/
-/dist/
 .vscode/
+/.svelte-kit/
+/build/
+/dist/
+node_modules/
