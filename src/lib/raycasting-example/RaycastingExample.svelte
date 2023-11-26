@@ -15,6 +15,7 @@
 		};
 		const board = new ArrayMutableBoard(boardDimensions, null);
 		const scene = new Scene(board);
+		scene.resetRays(100, Math.PI / 2);
 		return scene;
 	})();
 	let drawnScene = drawScene(scene);
