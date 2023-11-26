@@ -55,13 +55,13 @@ export class Scene {
 			});
 		this.rays = newRays;
 	}
-	public tick(deltaTimeSeconds: number): void {
-		this.rays = this.rays.map((ray) => Scene.tickRay(ray, deltaTimeSeconds));
+	public tick(deltaTimeSeconds: number, speedMultiplier: number): void {
+		this.rays = this.rays.map((ray) => Scene.tickRay(ray, deltaTimeSeconds, speedMultiplier));
 	}
-	private static tickRay(ray: Ray, deltaTimeSeconds: number): Ray {
+	private static tickRay(ray: Ray, deltaTimeSeconds: number, speedMultiplier: number): Ray {
 		const newPosition: Point = {
-			x: ray.position.x + ray.delta.x * deltaTimeSeconds,
-			y: ray.position.y + ray.delta.y * deltaTimeSeconds,
+			x: ray.position.x + ray.delta.x * deltaTimeSeconds * speedMultiplier,
+			y: ray.position.y + ray.delta.y * deltaTimeSeconds * speedMultiplier,
 		};
 		const newRay: Ray = {
 			delta: ray.delta,

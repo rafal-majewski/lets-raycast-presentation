@@ -8,6 +8,8 @@
 	import type {Point} from "$lib/utils/Point.ts";
 	import {ArrayMutableBoard} from "$lib/utils/board/ArrayMutableBoard.ts";
 
+	let simulationSpeedMultiplier = 1;
+
 	const scene = (() => {
 		const boardDimensions: Dimensions = {
 			height: 100,
@@ -33,7 +35,7 @@
 	const animationIntervalSeconds = 0.02;
 
 	const animate = () => {
-		scene.tick(animationIntervalSeconds);
+		scene.tick(animationIntervalSeconds, simulationSpeedMultiplier);
 		drawnScene = drawScene(scene);
 	};
 
@@ -53,6 +55,7 @@
 	{/if}
 	<div>
 		<button on:click={handleStartButtonClick} type="button">Start</button>
+		<input bind:value={simulationSpeedMultiplier} max="20" min="0" step="0.1" type="range" />
 	</div>
 </div>
 
