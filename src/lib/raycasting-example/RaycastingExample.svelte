@@ -29,12 +29,31 @@
 		scene.addWall(circle);
 		drawnScene = drawScene(scene);
 	};
+
+	const animationIntervalSeconds = 0.02;
+
+	const animate = () => {
+		scene.tick(animationIntervalSeconds);
+		drawnScene = drawScene(scene);
+	};
+
+	let animationIntervalID: null | ReturnType<typeof setInterval> = null;
+
+	const handleStartButtonClick = () => {
+		if (animationIntervalID !== null) {
+			clearInterval(animationIntervalID);
+		}
+		animationIntervalID = setInterval(animate, animationIntervalSeconds * 1000);
+	};
 </script>
 
 <div class="raycasting-example">
 	{#if appEnvironment.browser}
 		<RaycastingExampleSceneCanvas {drawnScene} on:click={handleSceneCanvasClick} />
 	{/if}
+	<div>
+		<button on:click={handleStartButtonClick} type="button">Start</button>
+	</div>
 </div>
 
 <style lang="scss">
