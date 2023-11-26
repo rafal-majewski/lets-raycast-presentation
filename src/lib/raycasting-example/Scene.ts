@@ -3,22 +3,18 @@ import type {Dimensions} from "$lib/utils/Dimensions.ts";
 import type {Point} from "$lib/utils/Point.ts";
 import type {RGBColor} from "$lib/utils/RGBColor.ts";
 import type {MutableBoard} from "$lib/utils/board/MutableBoard.ts";
+import {calculateRainbowGradient} from "$lib/utils/calculateRainbowGradient.ts";
 import type {Ray} from "./Ray.ts";
 import {paintCircleInMutableBoard} from "./paintCircleInMutableBoard.ts";
 
 export class Scene {
 	public addWall(circle: Circle): void {
-		const currentTimestampSeconds = new Date().getTime() / 1000;
-		const paint = (): RGBColor => {
-			const wallColor: RGBColor = {
-				blue: 0,
-				green: 1,
-				red: (currentTimestampSeconds / 10) % 1,
-			};
+		const paint = (position: Point): RGBColor => {
+			const rainbowGradientPercentage = (position.x + position.y) / 20;
+			const wallColor: RGBColor = calculateRainbowGradient(rainbowGradientPercentage);
 			return wallColor;
 		};
 		paintCircleInMutableBoard(this.wallBoard, circle, paint);
-		console.log(this.wallBoard);
 	}
 	public constructor(wallBoard: MutableBoard<null | RGBColor>) {
 		this.wallBoard = wallBoard;
