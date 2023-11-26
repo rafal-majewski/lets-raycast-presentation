@@ -1,5 +1,6 @@
 <script lang="ts" strictEvents>
 	import * as appEnvironment from "$app/environment";
+	import RaycastingExampleCameraCanvas from "$lib/raycasting-example/RaycastingExampleCameraCanvas.svelte";
 	import RaycastingExampleSceneCanvas from "$lib/raycasting-example/RaycastingExampleSceneCanvas.svelte";
 	import {Scene} from "$lib/raycasting-example/Scene.ts";
 	import {drawScene} from "$lib/raycasting-example/drawScene.ts";
@@ -7,6 +8,7 @@
 	import type {Dimensions} from "$lib/utils/Dimensions.ts";
 	import type {Point} from "$lib/utils/Point.ts";
 	import {ArrayMutableBoard} from "$lib/utils/board/ArrayMutableBoard.ts";
+	import {drawRays} from "./drawRays";
 
 	let simulationSpeedMultiplier = 1;
 
@@ -21,6 +23,7 @@
 		return scene;
 	})();
 	let drawnScene = drawScene(scene);
+	let drawnRays = drawRays(scene.getRays(), 100);
 
 	const handleSceneCanvasClick = (event: CustomEvent<Point>) => {
 		const clickPosition = event.detail;
@@ -30,6 +33,7 @@
 		};
 		scene.addWall(circle);
 		drawnScene = drawScene(scene);
+		drawnRays = drawRays(scene.getRays(), 100);
 	};
 
 	const animationIntervalSeconds = 0.02;
@@ -37,6 +41,7 @@
 	const animate = () => {
 		scene.tick(animationIntervalSeconds, simulationSpeedMultiplier);
 		drawnScene = drawScene(scene);
+		drawnRays = drawRays(scene.getRays(), 100);
 	};
 
 	let animationIntervalID: null | ReturnType<typeof setInterval> = null;
@@ -50,9 +55,14 @@
 </script>
 
 <div class="raycasting-example">
-	{#if appEnvironment.browser}
-		<RaycastingExampleSceneCanvas {drawnScene} on:click={handleSceneCanvasClick} />
-	{/if}
+	<div class="raycasting-example__displays">
+		{#if appEnvironment.browser}
+			<RaycastingExampleSceneCanvas {drawnScene} on:click={handleSceneCanvasClick} />
+		{/if}
+		{#if appEnvironment.browser}
+			<RaycastingExampleCameraCanvas {drawnRays} />
+		{/if}
+	</div>
 	<div>
 		<button on:click={handleStartButtonClick} type="button">Start</button>
 		<input bind:value={simulationSpeedMultiplier} max="20" min="0" step="0.1" type="range" />
@@ -64,5 +74,10 @@
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+	}
+	.raycasting-example__displays {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
 	}
 </style>
