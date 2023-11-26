@@ -21,7 +21,11 @@ export function paintCircleInMutableBoard<BoardElement>(
 			const currentPosition: Point = {x: currentX, y: currentY};
 			if (checkIsPointInsideCircle(currentPosition, circle)) {
 				const paintResult = paint(currentPosition);
-				mutableBoard.putCell(currentPosition, paintResult);
+				try {
+					mutableBoard.putCell(currentPosition, paintResult);
+				} catch {
+					// Ignore invalid positions.
+				}
 			}
 		}
 	}
