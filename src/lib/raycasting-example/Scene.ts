@@ -58,7 +58,7 @@ export class Scene {
 				};
 				const position: Point = {
 					x: this.wallBoard.getDimensions().width / 2,
-					y: this.wallBoard.getDimensions().height / 2,
+					y: this.wallBoard.getDimensions().height,
 				};
 				const ticksPassed = 0;
 				const ray: Ray<RGBColor> = {
