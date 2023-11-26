@@ -12,6 +12,8 @@
 
 	let simulationSpeedMultiplier = 1;
 	const rayCount = 300;
+	const simulatedVerticalViewAngle = Math.PI / 2;
+	const wallHeight = 200;
 
 	const scene = (() => {
 		const boardDimensions: Dimensions = {
@@ -25,7 +27,7 @@
 	})();
 
 	let drawnScene = drawScene(scene);
-	let drawnRays = drawRays(scene.getRays(), rayCount);
+	let drawnRays = drawRays(scene.getRays(), rayCount, simulatedVerticalViewAngle, wallHeight);
 
 	const handleSceneCanvasClick = (event: CustomEvent<Point>) => {
 		const clickPosition = event.detail;
@@ -35,7 +37,7 @@
 		};
 		scene.addWall(circle);
 		drawnScene = drawScene(scene);
-		drawnRays = drawRays(scene.getRays(), rayCount);
+		drawnRays = drawRays(scene.getRays(), rayCount, simulatedVerticalViewAngle, wallHeight);
 	};
 
 	const animationIntervalSeconds = 0.02;
@@ -43,7 +45,7 @@
 	const animate = () => {
 		scene.tick(animationIntervalSeconds, simulationSpeedMultiplier);
 		drawnScene = drawScene(scene);
-		drawnRays = drawRays(scene.getRays(), rayCount);
+		drawnRays = drawRays(scene.getRays(), rayCount, simulatedVerticalViewAngle, wallHeight);
 	};
 
 	let animationIntervalID: null | ReturnType<typeof setInterval> = null;

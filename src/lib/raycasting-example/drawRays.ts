@@ -4,7 +4,12 @@ import {ArrayMutableBoard} from "$lib/utils/board/ArrayMutableBoard.ts";
 import type {Board} from "$lib/utils/board/Board.ts";
 import type {Ray} from "./Ray.ts";
 
-export function drawRays(rays: readonly Ray<RGBColor>[], height: number): Board<RGBColor> {
+export function drawRays(
+	rays: readonly Ray<RGBColor>[],
+	height: number,
+	simulatedVerticalViewAngleRadians: number,
+	wallHeight: number,
+): Board<RGBColor> {
 	const pixelBoard = new ArrayMutableBoard<RGBColor>(
 		{
 			height,
@@ -16,7 +21,8 @@ export function drawRays(rays: readonly Ray<RGBColor>[], height: number): Board<
 		if (ray.hit === null) {
 			continue;
 		}
-		const lineHeight = Math.round(height / (1 + ray.ticksPassed));
+		const lineHeight =
+			(wallHeight / ray.ticksPassed) * Math.cos(simulatedVerticalViewAngleRadians / 2);
 		const lineTop = Math.round((height - lineHeight) / 2);
 		const lineBottom = Math.round(height - (height - lineHeight) / 2);
 		for (let pixelPositionY = lineTop; pixelPositionY <= lineBottom; ++pixelPositionY) {
