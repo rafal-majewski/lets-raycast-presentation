@@ -26,7 +26,11 @@ export function drawRays(
 		const lineTop = Math.round((height - lineHeight) / 2);
 		const lineBottom = Math.round(height - (height - lineHeight) / 2);
 		for (let pixelPositionY = lineTop; pixelPositionY <= lineBottom; ++pixelPositionY) {
-			pixelBoard.putCell({x: rayIndex, y: pixelPositionY}, ray.hit);
+			try {
+				pixelBoard.putCell({x: rayIndex, y: pixelPositionY}, ray.hit);
+			} catch {
+				// Ignore.
+			}
 		}
 	}
 	return pixelBoard;
