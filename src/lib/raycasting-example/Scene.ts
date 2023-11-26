@@ -55,5 +55,20 @@ export class Scene {
 			});
 		this.rays = newRays;
 	}
+	public tick(deltaTimeSeconds: number): void {
+		this.rays = this.rays.map((ray) => Scene.tickRay(ray, deltaTimeSeconds));
+	}
+	private static tickRay(ray: Ray, deltaTimeSeconds: number): Ray {
+		const newPosition: Point = {
+			x: ray.position.x + ray.delta.x * deltaTimeSeconds,
+			y: ray.position.y + ray.delta.y * deltaTimeSeconds,
+		};
+		const newRay: Ray = {
+			delta: ray.delta,
+			position: newPosition,
+			ticksPassed: ray.ticksPassed + deltaTimeSeconds,
+		};
+		return newRay;
+	}
 	private readonly wallBoard: MutableBoard<null | RGBColor>;
 }
