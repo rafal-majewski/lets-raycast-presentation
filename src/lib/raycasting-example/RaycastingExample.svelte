@@ -11,19 +11,21 @@
 	import {drawRays} from "./drawRays";
 
 	let simulationSpeedMultiplier = 1;
+	const rayCount = 300;
 
 	const scene = (() => {
 		const boardDimensions: Dimensions = {
-			height: 100,
-			width: 100,
+			height: 300,
+			width: 300,
 		};
 		const board = new ArrayMutableBoard(boardDimensions, null);
 		const scene = new Scene(board);
-		scene.resetRays(100, Math.PI / 2);
+		scene.resetRays(rayCount, Math.PI / 2);
 		return scene;
 	})();
+
 	let drawnScene = drawScene(scene);
-	let drawnRays = drawRays(scene.getRays(), 100);
+	let drawnRays = drawRays(scene.getRays(), rayCount);
 
 	const handleSceneCanvasClick = (event: CustomEvent<Point>) => {
 		const clickPosition = event.detail;
@@ -33,7 +35,7 @@
 		};
 		scene.addWall(circle);
 		drawnScene = drawScene(scene);
-		drawnRays = drawRays(scene.getRays(), 100);
+		drawnRays = drawRays(scene.getRays(), rayCount);
 	};
 
 	const animationIntervalSeconds = 0.02;
@@ -41,7 +43,7 @@
 	const animate = () => {
 		scene.tick(animationIntervalSeconds, simulationSpeedMultiplier);
 		drawnScene = drawScene(scene);
-		drawnRays = drawRays(scene.getRays(), 100);
+		drawnRays = drawRays(scene.getRays(), rayCount);
 	};
 
 	let animationIntervalID: null | ReturnType<typeof setInterval> = null;
@@ -65,7 +67,7 @@
 	</div>
 	<div>
 		<button on:click={handleStartButtonClick} type="button">Start</button>
-		<input bind:value={simulationSpeedMultiplier} max="20" min="0" step="0.1" type="range" />
+		<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="0.1" type="range" />
 	</div>
 </div>
 
