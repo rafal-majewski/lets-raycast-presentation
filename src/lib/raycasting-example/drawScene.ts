@@ -4,6 +4,7 @@ import {blackRGBColor} from "$lib/utils/blackRGBColor.ts";
 import {ArrayMutableBoard} from "$lib/utils/board/ArrayMutableBoard.ts";
 import type {Board} from "$lib/utils/board/Board.ts";
 import type {Scene} from "./Scene.ts";
+import {paintCircleInMutableBoard} from "./paintCircleInMutableBoard.ts";
 
 export function drawScene(scene: Scene): Board<RGBColor> {
 	const sceneDimensions = scene.getDimensions();
@@ -17,6 +18,13 @@ export function drawScene(scene: Scene): Board<RGBColor> {
 			}
 			pixelBoard.putCell(pixelPosition, wall);
 		}
+	}
+	for (const ray of scene.getRays()) {
+		paintCircleInMutableBoard(pixelBoard, {center: ray.position, radius: 1}, () => ({
+			blue: 1,
+			green: 1,
+			red: 1,
+		}));
 	}
 	return pixelBoard;
 }
