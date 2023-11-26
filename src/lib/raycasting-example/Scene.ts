@@ -10,7 +10,7 @@ import {paintCircleInMutableBoard} from "./paintCircleInMutableBoard.ts";
 export class Scene {
 	public addWall(circle: Circle): void {
 		const paint = (position: Point): RGBColor => {
-			const rainbowGradientPercentage = (position.x + position.y) / 20;
+			const rainbowGradientPercentage = (position.x + position.y) / 150;
 			const wallColor: RGBColor = calculateRainbowGradient(rainbowGradientPercentage);
 			return wallColor;
 		};
