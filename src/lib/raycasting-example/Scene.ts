@@ -24,16 +24,31 @@ export class Scene {
 		const wallBoardDimensions = this.wallBoard.getDimensions();
 		return wallBoardDimensions;
 	}
-	public getRays(): readonly Ray[] {
+	private getHitAtPosition(position: Point): null | RGBColor {
+		const roundedPosition: Point = {
+			x: Math.round(position.x),
+			y: Math.round(position.y),
+		};
+		const hit = (() => {
+			try {
+				const hit = this.wallBoard.getCell(roundedPosition);
+				return hit;
+			} catch {
+				return null;
+			}
+		})();
+		return hit;
+	}
+	public getRays(): readonly Ray<RGBColor>[] {
 		return this.rays;
 	}
 	public getWall(position: Point): null | RGBColor {
 		const wall = this.wallBoard.getCell(position);
 		return wall;
 	}
-	private rays: Ray[];
+	private rays: Ray<RGBColor>[];
 	public resetRays(rayCount: number, viewAngleRadians: number): void {
-		const newRays: Ray[] = Array(rayCount)
+		const newRays: Ray<RGBColor>[] = Array(rayCount)
 			.fill(null)
 			.map((_, index) => {
 				const inViewPercentage = index / (rayCount - 1);
@@ -46,8 +61,9 @@ export class Scene {
 					y: this.wallBoard.getDimensions().height / 2,
 				};
 				const ticksPassed = 0;
-				const ray: Ray = {
+				const ray: Ray<RGBColor> = {
 					delta,
+					hit: this.getHitAtPosition(position),
 					position,
 					ticksPassed,
 				};
@@ -56,15 +72,24 @@ export class Scene {
 		this.rays = newRays;
 	}
 	public tick(deltaTimeSeconds: number, speedMultiplier: number): void {
-		this.rays = this.rays.map((ray) => Scene.tickRay(ray, deltaTimeSeconds, speedMultiplier));
+		this.rays = this.rays.map((ray) => this.tickRay(ray, deltaTimeSeconds, speedMultiplier));
 	}
-	private static tickRay(ray: Ray, deltaTimeSeconds: number, speedMultiplier: number): Ray {
+	private tickRay(
+		ray: Ray<RGBColor>,
+		deltaTimeSeconds: number,
+		speedMultiplier: number,
+	): Ray<RGBColor> {
+		if (ray.hit !== null) {
+			return ray;
+		}
 		const newPosition: Point = {
 			x: ray.position.x + ray.delta.x * deltaTimeSeconds * speedMultiplier,
 			y: ray.position.y + ray.delta.y * deltaTimeSeconds * speedMultiplier,
 		};
-		const newRay: Ray = {
+		const hit = this.getHitAtPosition(newPosition);
+		const newRay: Ray<RGBColor> = {
 			delta: ray.delta,
+			hit,
 			position: newPosition,
 			ticksPassed: ray.ticksPassed + deltaTimeSeconds,
 		};
