@@ -13,7 +13,7 @@
 	let simulationSpeedMultiplier = 1;
 	let rayCount = 300;
 	const simulatedVerticalViewAngle = Math.PI / 2;
-	const wallHeight = 200;
+	const wallHeight = 8000;
 
 	const scene = (() => {
 		const boardDimensions: Dimensions = {
@@ -70,7 +70,7 @@
 	</div>
 	<div>
 		<button on:click={handleStartButtonClick} type="button">Start</button>
-		<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="0.1" type="range" />
+		<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="1" type="range" />
 		<label>
 			<span>Ray count: {rayCount}</span>
 			<input
