@@ -1049,13 +1049,7 @@ export default [
 				},
 			],
 			"svelte/no-unused-svelte-ignore": "error",
-			"svelte/no-useless-mustaches": [
-				"error",
-				{
-					ignoreIncludesComment: false,
-					ignoreStringEscape: false,
-				},
-			],
+			"svelte/no-useless-mustaches": "off",
 			"svelte/prefer-class-directive": "error",
 			"svelte/prefer-destructured-store-props": "error",
 			"svelte/prefer-style-directive": "error",

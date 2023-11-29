@@ -110,6 +110,93 @@
 			/>
 		</label>
 	</div>
+	<br /><br /><br /><br /><br /><br />
+	<section>
+		<h2>Code</h2>
+		<br /><br />
+		<div>
+			<pre><code
+					>{`type Point = {
+	x: number;
+	y: number;
+};`}</code
+				></pre>
+			<br />
+			<pre><code
+					>{`type RGBColor = {
+	blue: number;
+	green: number;
+	red: number;
+};`}</code
+				></pre>
+			<br />
+			<pre><code
+					>{`type Ray = {
+	speed: Point;
+	hit: RGBColor | null;
+	position: Point;
+	ticksPassed: number;
+};`}</code
+				></pre>
+			<br />
+			<pre><code
+					>{`class Scene {
+	rays: Ray[];
+	wallBoard: Board<null | RGBColor>;
+
+	getHitAtPosition(position: Point): null | RGBColor {
+		roundedPosition: Point = {
+			x: Math.round(position.x),
+			y: Math.round(position.y),
+		};
+		hit = this.wallBoard.getCell(roundedPosition);
+		return hit;
+	}
+	resetRays(rayCount: number, viewAngleRadians: number): void {
+		newRays: Ray[] = Array.ofSize(rayCount)
+			.initEach((index) => {
+				inViewPercentage = index / (rayCount - 1);
+				ray: Ray = {
+					speed: {
+						x: Math.tan(
+							viewAngleRadians * (
+								inViewPercentage - 0.5
+							)
+						),
+						y: -1,
+					},
+					hit: this.getHitAtPosition(position),
+					position: {
+						x: this.wallBoard.width / 2,
+						y: this.wallBoard.height,
+					},
+					ticksPassed: 0,
+				};
+				return ray;
+			});
+		this.rays = newRays;
+	}
+	tickRay(ray: Ray, timeIncreaseSeconds: number): Ray {
+		if (ray.hit !== null) {
+			return ray;
+		}
+		newPosition: Point = {
+			x: ray.position.x + ray.speed.x * timeIncreaseSeconds,
+			y: ray.position.y + ray.speed.y * timeIncreaseSeconds,
+		};
+		hit = this.getHitAtPosition(newPosition);
+		newRay: Ray = {
+			speed: ray.speed,
+			hit: hit,
+			position: newPosition,
+			ticksPassed: ray.ticksPassed + timeIncreaseSeconds,
+		};
+		return newRay;
+	}
+}`}</code
+				></pre>
+		</div>
+	</section>
 	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 	<div>
 		Go to <a href="/what-is-next">What is Next?</a>.
