@@ -97,7 +97,8 @@
 		<section>
 			<p>
 				Experiment 2 (homework): Get yourself a red and a cyan object. Enter a dark room with these
-				objects. Compare their appearance.
+				objects. Ensure there is little light (there needs to be some light for you to see the
+				objects). Compare their appearance.
 			</p>
 		</section>
 		<section>
