@@ -43,6 +43,7 @@
 			<!-- svelte-ignore a11y-img-redundant-alt -->
 			<img alt="Real Photo" src={realPhotoImageRef} />
 		</div>
+		<span>Which one is the real photo?</span>
 		<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br
 		/><br />
 		<img alt="Raytracing Ball Reflection" src={raytracingBallReflectionImageRef} />
