@@ -13,7 +13,8 @@
 	let simulationSpeedMultiplier = 1;
 	let rayCount = 300;
 	const simulatedVerticalViewAngle = Math.PI / 2;
-	const wallHeight = 200;
+	const horizontalViewAngle = Math.PI / 2;
+	const wallHeight = 8000;
 
 	const scene = (() => {
 		const boardDimensions: Dimensions = {
@@ -41,7 +42,7 @@
 		drawnRays = drawRays(scene.getRays(), rayCount, simulatedVerticalViewAngle, wallHeight);
 	};
 
-	const animationIntervalSeconds = 0.02;
+	const animationIntervalSeconds = 0.1;
 
 	const animate = () => {
 		scene.tick(animationIntervalSeconds, simulationSpeedMultiplier);
@@ -57,6 +58,19 @@
 		}
 		animationIntervalID = setInterval(animate, animationIntervalSeconds * 1000);
 	};
+
+	const handleStopButtonClick = () => {
+		if (animationIntervalID !== null) {
+			clearInterval(animationIntervalID);
+			animationIntervalID = null;
+		}
+	};
+
+	const handleResetButtonClick = () => {
+		scene.resetRays(rayCount, horizontalViewAngle);
+		drawnScene = drawScene(scene);
+		drawnRays = drawRays(scene.getRays(), rayCount, simulatedVerticalViewAngle, wallHeight);
+	};
 </script>
 
 <div class="raycasting-example">
@@ -69,8 +83,17 @@
 		{/if}
 	</div>
 	<div>
-		<button on:click={handleStartButtonClick} type="button">Start</button>
-		<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="0.1" type="range" />
+		<button disabled={animationIntervalID !== null} on:click={handleStartButtonClick} type="button">
+			Start
+		</button>
+		<button disabled={animationIntervalID === null} on:click={handleStopButtonClick} type="button">
+			Stop
+		</button>
+		<button on:click={handleResetButtonClick} type="button"> Reset </button>
+		<label>
+			<span>Simulation speed multiplier: {simulationSpeedMultiplier}</span>
+			<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="1" type="range" />
+		</label>
 		<label>
 			<span>Ray count: {rayCount}</span>
 			<input
@@ -82,6 +105,10 @@
 				type="range"
 			/>
 		</label>
+	</div>
+	<br />
+	<div>
+		Go to <a href="/what-is-next">What is Next?</a>.
 	</div>
 </div>
 

@@ -22,7 +22,8 @@ export function drawRays(
 			continue;
 		}
 		const lineHeight =
-			(wallHeight / ray.ticksPassed) * Math.cos(simulatedVerticalViewAngleRadians / 2);
+			((wallHeight / ray.ticksPassed) * Math.cos(simulatedVerticalViewAngleRadians / 2)) /
+			(300 / height);
 		const lineTop = Math.round((height - lineHeight) / 2);
 		const lineBottom = Math.round(height - (height - lineHeight) / 2);
 		for (let pixelPositionY = lineTop; pixelPositionY <= lineBottom; ++pixelPositionY) {

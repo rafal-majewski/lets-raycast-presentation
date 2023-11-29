@@ -72,19 +72,17 @@ export class Scene {
 		this.rays = newRays;
 	}
 	public tick(deltaTimeSeconds: number, speedMultiplier: number): void {
-		this.rays = this.rays.map((ray) => this.tickRay(ray, deltaTimeSeconds, speedMultiplier));
+		for (let i = 0; i < speedMultiplier; ++i) {
+			this.rays = this.rays.map((ray) => this.tickRay(ray, deltaTimeSeconds));
+		}
 	}
-	private tickRay(
-		ray: Ray<RGBColor>,
-		deltaTimeSeconds: number,
-		speedMultiplier: number,
-	): Ray<RGBColor> {
+	private tickRay(ray: Ray<RGBColor>, deltaTimeSeconds: number): Ray<RGBColor> {
 		if (ray.hit !== null) {
 			return ray;
 		}
 		const newPosition: Point = {
-			x: ray.position.x + ray.delta.x * deltaTimeSeconds * speedMultiplier,
-			y: ray.position.y + ray.delta.y * deltaTimeSeconds * speedMultiplier,
+			x: ray.position.x + ray.delta.x * deltaTimeSeconds,
+			y: ray.position.y + ray.delta.y * deltaTimeSeconds,
 		};
 		const hit = this.getHitAtPosition(newPosition);
 		const newRay: Ray<RGBColor> = {
