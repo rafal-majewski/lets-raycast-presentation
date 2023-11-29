@@ -13,6 +13,7 @@
 	let simulationSpeedMultiplier = 1;
 	let rayCount = 300;
 	const simulatedVerticalViewAngle = Math.PI / 2;
+	const horizontalViewAngle = Math.PI / 2;
 	const wallHeight = 8000;
 
 	const scene = (() => {
@@ -64,6 +65,12 @@
 			animationIntervalID = null;
 		}
 	};
+
+	const handleResetButtonClick = () => {
+		scene.resetRays(rayCount, horizontalViewAngle);
+		drawnScene = drawScene(scene);
+		drawnRays = drawRays(scene.getRays(), rayCount, simulatedVerticalViewAngle, wallHeight);
+	};
 </script>
 
 <div class="raycasting-example">
@@ -82,6 +89,7 @@
 		<button disabled={animationIntervalID === null} on:click={handleStopButtonClick} type="button">
 			Stop
 		</button>
+		<button on:click={handleResetButtonClick} type="button"> Reset </button>
 		<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="1" type="range" />
 		<label>
 			<span>Ray count: {rayCount}</span>
