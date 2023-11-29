@@ -113,7 +113,8 @@
 	<section>
 		<h2>Rendering 3D Graphics</h2>
 		<p>Fact: It's simpler to model light as a particle than as a wave.</p>
-		<p>Explore <a href="/light-simulation">light simulation</a>.</p>
+		<p>Go to <a href="/raycasting-example">an example of raycasting</a>.</p>
+		<!-- <p>Explore <a href="/light-simulation">light simulation</a>.</p> -->
 	</section>
 </article>
 
