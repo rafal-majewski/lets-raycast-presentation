@@ -24,9 +24,29 @@
 
 	const updateSceneCanvas = (canvasElement: HTMLCanvasElement, imageData: ImageData) => {
 		putImageDataInCanvas(canvasElement, imageData);
+		const ctx = canvasElement.getContext("2d");
+		if (ctx !== null) {
+			ctx.strokeStyle = "gray";
+			ctx.moveTo(150, 299);
+			ctx.lineTo(150 - 30, 299 - 30);
+			ctx.stroke();
+			ctx.moveTo(150, 299);
+			ctx.lineTo(150 + 30, 299 - 30);
+			ctx.stroke();
+		}
 		return {
 			update: (newImageData: ImageData) => {
 				putImageDataInCanvas(canvasElement, newImageData);
+				const newCtx = canvasElement.getContext("2d");
+				if (newCtx !== null) {
+					newCtx.strokeStyle = "gray";
+					newCtx.moveTo(150, 299);
+					newCtx.lineTo(150 - 30, 299 - 30);
+					newCtx.stroke();
+					newCtx.moveTo(150, 299);
+					newCtx.lineTo(150 + 30, 299 - 30);
+					newCtx.stroke();
+				}
 			},
 		};
 	};
