@@ -90,7 +90,10 @@
 			Stop
 		</button>
 		<button on:click={handleResetButtonClick} type="button"> Reset </button>
-		<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="1" type="range" />
+		<label>
+			<span>Simulation speed multiplier: {simulationSpeedMultiplier}</span>
+			<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="1" type="range" />
+		</label>
 		<label>
 			<span>Ray count: {rayCount}</span>
 			<input
