@@ -69,7 +69,9 @@
 		{/if}
 	</div>
 	<div>
-		<button on:click={handleStartButtonClick} type="button">Start</button>
+		<button disabled={animationIntervalID !== null} on:click={handleStartButtonClick} type="button">
+			Start
+		</button>
 		<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="1" type="range" />
 		<label>
 			<span>Ray count: {rayCount}</span>
