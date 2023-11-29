@@ -57,6 +57,13 @@
 		}
 		animationIntervalID = setInterval(animate, animationIntervalSeconds * 1000);
 	};
+
+	const handleStopButtonClick = () => {
+		if (animationIntervalID !== null) {
+			clearInterval(animationIntervalID);
+			animationIntervalID = null;
+		}
+	};
 </script>
 
 <div class="raycasting-example">
@@ -71,6 +78,9 @@
 	<div>
 		<button disabled={animationIntervalID !== null} on:click={handleStartButtonClick} type="button">
 			Start
+		</button>
+		<button disabled={animationIntervalID === null} on:click={handleStopButtonClick} type="button">
+			Stop
 		</button>
 		<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="1" type="range" />
 		<label>
