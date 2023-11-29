@@ -11,7 +11,7 @@
 	import {drawRays} from "./drawRays";
 
 	let simulationSpeedMultiplier = 1;
-	const rayCount = 300;
+	let rayCount = 300;
 	const simulatedVerticalViewAngle = Math.PI / 2;
 	const wallHeight = 200;
 
@@ -22,12 +22,13 @@
 		};
 		const board = new ArrayMutableBoard(boardDimensions, null);
 		const scene = new Scene(board);
-		scene.resetRays(rayCount, Math.PI / 2);
 		return scene;
 	})();
 
+	$: scene.resetRays(rayCount, Math.PI / 2);
+
 	let drawnScene = drawScene(scene);
-	let drawnRays = drawRays(scene.getRays(), rayCount, simulatedVerticalViewAngle, wallHeight);
+	$: drawnRays = drawRays(scene.getRays(), rayCount, simulatedVerticalViewAngle, wallHeight);
 
 	const handleSceneCanvasClick = (event: CustomEvent<Point>) => {
 		const clickPosition = event.detail;
@@ -70,6 +71,17 @@
 	<div>
 		<button on:click={handleStartButtonClick} type="button">Start</button>
 		<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="0.1" type="range" />
+		<label>
+			<span>Ray count: {rayCount}</span>
+			<input
+				bind:value={rayCount}
+				disabled={animationIntervalID !== null}
+				max={scene.getDimensions().width}
+				min="2"
+				step="1"
+				type="range"
+			/>
+		</label>
 	</div>
 </div>
 
