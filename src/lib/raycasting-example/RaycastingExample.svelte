@@ -42,7 +42,7 @@
 		drawnRays = drawRays(scene.getRays(), rayCount, simulatedVerticalViewAngle, wallHeight);
 	};
 
-	const animationIntervalSeconds = 0.02;
+	const animationIntervalSeconds = 0.1;
 
 	const animate = () => {
 		scene.tick(animationIntervalSeconds, simulationSpeedMultiplier);
