@@ -1,6 +1,7 @@
 <script lang="ts" strictEvents>
 	import Raycasting3DCheckerboardImageRef from "./assets/3d-raycasting-checkerboard.png";
 	import Raycasting3DIslandsImageRef from "./assets/3d-raycasting-islands.png";
+	import quadtreeImageRef from "./assets/quadtree.png";
 	import raytracingBallReflectionImageRef from "./assets/raytracing-ball-reflection.png";
 	import raytracingExampleImageRef from "./assets/raytracing-example.png";
 	import realPhotoImageRef from "./assets/real-photo.jpg";
@@ -8,6 +9,10 @@
 
 <article>
 	<h1>What Is Next?</h1>
+	<section>
+		<h2>Quadtree</h2>
+		<img alt="Quadtree" src={quadtreeImageRef} />
+	</section>
 	<section>
 		<h2>Full 3D Raycasting</h2>
 		<iframe
