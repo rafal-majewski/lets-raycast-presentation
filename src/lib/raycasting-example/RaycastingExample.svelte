@@ -4,6 +4,7 @@
 	import RaycastingExampleSceneCanvas from "$lib/raycasting-example/RaycastingExampleSceneCanvas.svelte";
 	import {Scene} from "$lib/raycasting-example/Scene.ts";
 	import {drawScene} from "$lib/raycasting-example/drawScene.ts";
+	import Article from "$lib/utils/Article.svelte";
 	import type {Circle} from "$lib/utils/Circle.ts";
 	import type {Dimensions} from "$lib/utils/Dimensions.ts";
 	import type {Point} from "$lib/utils/Point.ts";
@@ -73,7 +74,7 @@
 	};
 </script>
 
-<div class="raycasting-example">
+<Article>
 	<div class="raycasting-example__displays">
 		{#if appEnvironment.browser}
 			<RaycastingExampleSceneCanvas {drawnScene} on:click={handleSceneCanvasClick} />
@@ -82,6 +83,7 @@
 			<RaycastingExampleCameraCanvas {drawnRays} />
 		{/if}
 	</div>
+	<br />
 	<div>
 		<button disabled={animationIntervalID !== null} on:click={handleStartButtonClick} type="button">
 			Start
@@ -90,10 +92,12 @@
 			Stop
 		</button>
 		<button on:click={handleResetButtonClick} type="button"> Reset </button>
+		<br />
 		<label>
 			<span>Simulation speed multiplier: {simulationSpeedMultiplier}</span>
 			<input bind:value={simulationSpeedMultiplier} max="80" min="0" step="1" type="range" />
 		</label>
+		<br />
 		<label>
 			<span>Ray count: {rayCount}</span>
 			<input
@@ -106,21 +110,18 @@
 			/>
 		</label>
 	</div>
-	<br />
+	<br /><br /><br /><br /><br /><br /><br /><br /><br /><br />
 	<div>
 		Go to <a href="/what-is-next">What is Next?</a>.
 	</div>
-</div>
+</Article>
 
 <style lang="scss">
-	.raycasting-example {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-	}
 	.raycasting-example__displays {
 		display: flex;
 		flex-direction: column;
 		gap: 0.5rem;
+		width: min-content;
+		margin: 0 auto;
 	}
 </style>
