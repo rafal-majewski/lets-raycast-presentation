@@ -106,6 +106,10 @@
 			/>
 		</label>
 	</div>
+	<br />
+	<div>
+		Go to <a href="/what-is-next">What is Next?</a>.
+	</div>
 </div>
 
 <style lang="scss">
