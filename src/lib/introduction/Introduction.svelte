@@ -5,6 +5,7 @@
 	import emissionTheoryImageRef from "./assets/emission-theory.jpg";
 	import humanEyePhotoreceptorsImageRef from "./assets/human-eye-photoreceptors.webp";
 	import humanEyeRetinalResponsesToLightImageRef from "./assets/human-eye-retinal-responses-to-light.png";
+	import orangesImageRef from "./assets/oranges.jpg";
 	import pixelMonitorImageRef from "./assets/pixel-monitor.jpg";
 	import sheetOfPaperImageRef from "./assets/sheet-of-paper.jpg";
 	import streetCircularMirrorImageRef from "./assets/street-circular-mirror.jpg";
@@ -79,7 +80,7 @@
 						<li>
 							Experience partial absorption and reflection.
 							<br />
-							<img alt="Orange" />
+							<img alt="Oranges" src={orangesImageRef} />
 						</li>
 					</ul>
 				</li>
